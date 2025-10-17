@@ -5,56 +5,56 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Alert } from "react-native";
 
 type User = {
-    id: string,
-    nome: string,
-    email: string,
-    token: string, 
-}
+  id: string;
+  nome: string;
+  email: string;
+  token: string;
+};
 
 type AuthContextProps = {
-    user: User | null;
-    login: (email: string, senha: string) => Promise<void>
-    logout: () => void
-}
+  user: User | null;
+  login: (email: string, senha: string) => Promise<void>;
+  logout: () => void;
+};
 
+export const AuthContext = createContext<AuthContextProps>(
+  {} as AuthContextProps
+);
 
-export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
+export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const [user, setUser] = useState<User | null>(null);
 
+  useEffect(() => {
+    async function getStorageData() {
+      const storageData = await AsyncStorage.getItem("@token-blogIfma!");
 
-export const AuthProvider = ({children}: PropsWithChildren) => {
-    const [user, setUser] = useState<User | null>(null);
-
-    useEffect(() => {
-        async function getStorageData(){
-            const storageData = await AsyncStorage.getItem("@token-blogIfma!")
-
-            if(storageData){
-                setUser(JSON.parse(storageData))
-            }
-        }
-
-        getStorageData()
-    })
-
-    async function login(email: string, senha: string){
-        try{
-            const response = await api.post<User>("login", {email, senha})
-            AsyncStorage.setItem("@token-blogIfma!", JSON.stringify(response.data))
-            setUser(response.data);
-        }catch(err){
-            Alert.alert("error ")
-        }
+      if (storageData) {
+        setUser(JSON.parse(storageData));
+      }
     }
 
+    getStorageData();
+  });
 
-    async function logout(){
-        setUser(null)
-        await AsyncStorage.removeItem("@token-blogIfma!")
+  async function login(email: string, senha: string) {
+    try {
+      const response = await api.post<User>("login", { email, senha });
+      AsyncStorage.setItem("@token-blogIfma!", JSON.stringify(response.data));
+      setUser(response.data);
+    } catch (err) {
+      Alert.alert(`${err}`);
+      console.log(err);
     }
+  }
 
-    return(
-        <AuthContext.Provider value={{user, login, logout}}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+  async function logout() {
+    setUser(null);
+    await AsyncStorage.removeItem("@token-blogIfma!");
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
