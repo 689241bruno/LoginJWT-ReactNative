@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import Login from "../pages/public/Login";
+import Register from "../pages/public/Register";
 import Header from "../coponents/Header";
 
 const PublicRoutes = () => {

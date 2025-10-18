@@ -4,8 +4,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Animatable from "react-native-animatable";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useAuth } from "../hooks/useAuth";
-import Header from "../coponents/Header";
+import { useAuth } from "../../hooks/useAuth";
+import Header from "../../coponents/Header";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { useState } from "react";
 
@@ -30,7 +30,7 @@ const Login = () => {
       </View>
       <View style={styles.h1}>
         <Image
-          source={require("../assets/Macawdemy_Letreiro.png")}
+          source={require("../../assets/Macawdemy_Letreiro.png")}
           style={styles.imagemMacaw}
           resizeMode="contain"
         ></Image>
@@ -105,7 +105,7 @@ const Login = () => {
           <TouchableOpacity style={styles.btnOpcoes}>
             <Image
               style={styles.imageOpcoes}
-              source={require("../assets/Google_icone.png")}
+              source={require("../../assets/Google_icone.png")}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -113,7 +113,7 @@ const Login = () => {
             {" "}
             <Image
               style={styles.imageOpcoes}
-              source={require("../assets/Facebook_icone.png")}
+              source={require("../../assets/Facebook_icone.png")}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -121,7 +121,7 @@ const Login = () => {
             {" "}
             <Image
               style={styles.imageOpcoes}
-              source={require("../assets/Microsoft_icone.png")}
+              source={require("../../assets/Microsoft_icone.png")}
               resizeMode="contain"
             />
           </TouchableOpacity>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
 
   main: {
-    height: "60%",
+    height: 500,
     width: "90%",
     backgroundColor: "#FFF",
     alignSelf: "center",
@@ -248,10 +248,9 @@ const styles = StyleSheet.create({
     width: 50,
   },
   footer: {
-    height: 100,
+    height: "20%",
     width: "100%",
-    position: "absolute",
-    bottom: 0,
+    justifyContent: "flex-end",
   },
 });
 
