@@ -1,5 +1,6 @@
 import { Image } from "react-native-animatable";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import Principal from "../pages/Principal";
 import Configuracoes from "../pages/Configuracoes";
@@ -25,8 +26,8 @@ const icons = {
 };
 
 const Tab = createBottomTabNavigator();
-
 const ProtectedRoutes = () => {
+  const inserts = useSafeAreaInsets();
   return (
     <Tab.Navigator
       initialRouteName="principal"
@@ -34,13 +35,13 @@ const ProtectedRoutes = () => {
         tabBarStyle: {
           backgroundColor: "white",
           paddingTop: 10,
-          height: 90,
+          height: 50 + inserts.bottom,
           padding: 5,
         },
         tabBarShowLabel: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconSource;
-          const iconSize = 30; // Tamanho fixo para suas imagens
+          const iconSize = 30;
           if (route.name === "planoEstudos") {
             iconSource = focused
               ? icons.planoEstudosActivate
@@ -61,9 +62,6 @@ const ProtectedRoutes = () => {
               style={{
                 width: iconSize,
                 height: iconSize,
-                // Opcional: Se suas imagens forem preenchidas (monocromáticas),
-                // você pode usar a cor dinâmica fornecida pelo Tab Navigator
-                // tintColor: focused ? '#FF6347' : '#CCCCCC',
               }}
             />
           );

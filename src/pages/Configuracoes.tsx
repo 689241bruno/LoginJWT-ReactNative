@@ -3,8 +3,6 @@ import { useAuth } from "../hooks/useAuth";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ContainerMateria from "../coponents/ContainerMateria";
 import Header from "../coponents/Header";
-import MenuBar from "../coponents/MenuBar";
-import { configureFonts } from "react-native-paper";
 
 const Configuracoes = () => {
   const { user, logout } = useAuth();
@@ -23,7 +21,6 @@ const Configuracoes = () => {
         <TouchableOpacity onPress={logout}>
           <Text>Sair</Text>
         </TouchableOpacity>
-        <ContainerMateria />
       </View>
     </View>
   );
