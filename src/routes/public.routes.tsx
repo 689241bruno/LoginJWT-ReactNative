@@ -9,7 +9,11 @@ const PublicRoutes = () => {
   return (
     <Navigator>
       <Screen name="login" component={Login} options={{ headerShown: false }} />
-      <Screen name="register" component={Register} />
+      <Screen
+        name="register"
+        component={Register}
+        options={{ headerShown: false }}
+      />
     </Navigator>
   );
 };

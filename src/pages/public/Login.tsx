@@ -8,6 +8,8 @@ import { useAuth } from "../../hooks/useAuth";
 import Header from "../../coponents/Header";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { useState } from "react";
+import { lime100 } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
   const { login } = useAuth();
@@ -16,10 +18,17 @@ const Login = () => {
   const [oculto, setOculto] = useState(true);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const navigation = useNavigation<any>();
 
   return (
     <Animatable.View
-      style={{ flex: 1, paddingTop: inserts.top, backgroundColor: "white" }}
+      style={{
+        flex: 1,
+        paddingTop: inserts.top,
+        paddingBottom: inserts.bottom,
+        backgroundColor: "white",
+        justifyContent: "space-between",
+      }}
     >
       <View style={styles.header}>
         <TouchableOpacity style={styles.botaoVoltar}>
@@ -36,7 +45,7 @@ const Login = () => {
         ></Image>
       </View>
       <View style={styles.main}>
-        <KeyboardAvoidingView style={styles.section1}>
+        <View style={styles.section1}>
           <View>
             <View style={styles.login}>
               <View style={styles.inputs}>
@@ -73,13 +82,16 @@ const Login = () => {
                     status={checked ? "checked" : "unchecked"}
                     onPress={() => setChecked(!checked)}
                   />
-                  <Text style={{ fontSize: 12 }}>Lembrar de mim</Text>
+                  <Text style={{ fontSize: 12 }}>Lembrar de mim </Text>
+                  <Text style={{ fontSize: 12, color: "#b8b8b8ff" }}>
+                    (30 dias)
+                  </Text>
                 </View>
                 <TouchableOpacity>
                   <Text style={styles.link}>Esqueci minha senha</Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={() => login(email, senha)}>
+              <TouchableOpacity onPress={() => login(email, senha, checked)}>
                 <LinearGradient
                   colors={["#0c4499ff", "#51bcd6ff", "#239fbeff"]}
                   start={{ x: 0, y: 0 }}
@@ -89,13 +101,13 @@ const Login = () => {
                   <Text
                     style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
                   >
-                    Acessar
+                    Entrar
                   </Text>
                 </LinearGradient>
               </TouchableOpacity>
             </View>
           </View>
-        </KeyboardAvoidingView>
+        </View>
         <View style={styles.section2}>
           <View style={styles.linha}></View>
           <Text style={{ backgroundColor: "#FFF", margin: 4 }}>ou</Text>
@@ -110,7 +122,6 @@ const Login = () => {
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnOpcoes}>
-            {" "}
             <Image
               style={styles.imageOpcoes}
               source={require("../../assets/Facebook_icone.png")}
@@ -118,7 +129,6 @@ const Login = () => {
             />
           </TouchableOpacity>
           <TouchableOpacity style={styles.btnOpcoes}>
-            {" "}
             <Image
               style={styles.imageOpcoes}
               source={require("../../assets/Microsoft_icone.png")}
@@ -128,18 +138,10 @@ const Login = () => {
         </View>
       </View>
       <View style={styles.footer}>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-          }}
-        >
-          <Text style={{ fontSize: 12 }}>Não tem uma conta?</Text>
-          <TouchableOpacity>
-            <Text style={styles.link}>Criar conta</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={{ fontSize: 12 }}>Não tem uma conta?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("register")}>
+          <Text style={styles.link}>Criar conta</Text>
+        </TouchableOpacity>
       </View>
     </Animatable.View>
   );
@@ -237,9 +239,9 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: "#FFF",
     borderRadius: 15,
-    elevation: 5,
+    elevation: 4,
     borderColor: "#808080ff",
-    borderWidth: 2,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -248,9 +250,11 @@ const styles = StyleSheet.create({
     width: 50,
   },
   footer: {
-    height: "20%",
+    height: "10%",
     width: "100%",
-    justifyContent: "flex-end",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

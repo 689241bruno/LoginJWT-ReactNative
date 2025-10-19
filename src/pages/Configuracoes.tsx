@@ -18,6 +18,7 @@ const Configuracoes = () => {
       <Header />
       <View style={styles.main}>
         <Text>{`seja bem vindo ${user?.nome}`}</Text>
+        <Text>{`expirar : ${user?.lembrar}`}</Text>
         <TouchableOpacity onPress={logout}>
           <Text>Sair</Text>
         </TouchableOpacity>
